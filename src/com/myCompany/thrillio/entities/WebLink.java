@@ -1,6 +1,6 @@
 package com.myCompany.thrillio.entities;
 
-public class webLink extends Bookmark {
+public class WebLink extends Bookmark {
 	private String url;
 	private String host;
 

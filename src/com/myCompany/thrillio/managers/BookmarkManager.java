@@ -1,11 +1,16 @@
 package com.myCompany.thrillio.managers;
 
+import com.myCompany.thrillio.dao.BookmarkDao;
 import com.myCompany.thrillio.entities.Book;
+import com.myCompany.thrillio.entities.Bookmark;
 import com.myCompany.thrillio.entities.Movie;
+import com.myCompany.thrillio.entities.User;
+import com.myCompany.thrillio.entities.UserBookmark;
+import com.myCompany.thrillio.entities.WebLink;
 
 public class BookmarkManager {
 	private static BookmarkManager instance = new BookmarkManager();
-
+	private static BookmarkDao dao = new BookmarkDao();
 	private BookmarkManager() {
 	};
 
@@ -28,13 +33,13 @@ public class BookmarkManager {
 		return movie;
 	}
 	
-	public Book createBook(long id, String title, String profileUrl, int publicationYear, String publisher,
+	
+	public Book createBook(long id, String title, int publicationYear, String publisher,
 			String[] authors, String genre, double amazonRating) {
 		Book book = new Book();
 
 		book.setId(id);
 		book.setTitle(title);
-		book.setProfileUrl(profileUrl);
 		book.setPublicationYear(publicationYear);
 		book.setPublisher(publisher);
 		book.setAuthors(authors);
@@ -43,6 +48,25 @@ public class BookmarkManager {
 		return book;
 	}
 	
-	
+	public WebLink createWebLink (long id, String title, String url, String host) {
+		WebLink webLink = new WebLink();
 
+		webLink.setId(id);
+		webLink.setTitle(title);
+		webLink.setUrl(url);
+		webLink.setHost(host);
+		
+		return webLink;
+	}
+	public Bookmark[][] getBookmarks(){
+		return dao.getBookmarks();
+	}
+	
+	public void saveUserBookmark(User user, Bookmark bookmark ) {
+		UserBookmark userBookmark = new UserBookmark();
+		userBookmark.setBookmark(bookmark);
+		userBookmark.setUser(user);
+		
+		dao.saveUserBookmark(userBookmark);
+	}
 }
